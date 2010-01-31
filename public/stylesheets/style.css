@@ -62,14 +62,14 @@ hr {color:#133960;}
 
 /* Main Page Divs*/
 #page{color:#133960;width:100%;position:absolute;top:0;left:0;}
-#header{text-align:center;}
+#header{text-align:center;width:860px;}
 #main{width:860px;margin:auto;}
 #footer{height:27px;background-color:#133960; color: white; border-top:10px #029cd2 solid; text-align:center; padding-top:6px;}
 #login_box{text-align:right;}
 #logo {float:right;width:205px;margin-top:0px;}
 #feedback {position:fixed; top:35%; left:0px;border:2px #029cd2 solid;padding-bottom:0;}
-.navwrap{position:fixed;left:0;width:100%;z-index:100;}
-.headwrap{top:0;}
+.navwrap{position:fixed;width:100%;z-index:100;}
+.headwrap{top:0;width:860px}
 .footwrap{bottom:0;}
 #navbuff{height:80px;}
 #navbuff2{height:70px;}
