@@ -103,7 +103,10 @@ module SleepsHelper
       lc.data "Target Hours", target_array, 'ff0000'
       lc.axis :y, :range => [min_hour,max_hour], :color => '000000', :font_size => 16, :alignment => :center
       lc.axis :x, :labels => day_array, :color => '000000', :font_size => 16, :alignment => :center
-      lc.grid :x_step => 100.0/(hour_array.length - 1), :y_step => 100.0/(max_hour - min_hour), :length_segment => 1, :length_blank => 0
+#      lc.grid :x_step => 100.0/(hour_array.length - 1), :y_step => 100.0/(max_hour - min_hour), :length_segment => 1, :length_blank => 0
+      lc.fill :background, :solid, :color => 'C1E6F6'
+      lc.fill_area 'C7ECFC', 1, 0   # light
+      lc.fill_area '029CD2', 0, 0   # dark
       return lc.to_url
     end
   end
