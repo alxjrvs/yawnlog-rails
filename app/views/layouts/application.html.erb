@@ -16,28 +16,38 @@ end %>
     <body>
         <div id="page">
             <div id="header">
-                <% if @foo %>
-					<div class="navwrap headwrap">
-				<% end %>
-	                <div id="nav">
-						<div id="logo"><%= link_to image_tag ("yawnlog_logo_beta_horz3.png", :alt=>"logo"), :controller => "home", :action => "index" %></div>
-						<ul>
-							<% if session[:user_id] %>
-								<li><%= link_to "Sleep", :controller => "sleeps" %></li>
-								<li><%= link_to "Friends", :controller => "friends", :action => "index" %></li>
-								<li><%= link_to "World", :controller => "users", :action => "public_profiles" %></li>
-								<li><%= link_to "Settings", :controller => "users", :action => "edit"%></li> 
-								<% if User.find(session[:user_id]).admin %>
+            <% if @foo %>
+			<div class="headwrap">
+			<% end %>
+	    		<div id="nav">
+				    <div id="logo"><%= link_to image_tag ("yawnlog_logo_beta_horz3.png", :alt=>"PJ's looking out for your sleep!"), :controller => "home", :action => "index" %></div>
+					<ul>
+						<% if session[:user_id] %>
+						    <li>
+                                <%= link_to "Sleep", :controller => "sleeps" %>
+                            </li>
+
+							<li>
+                                <%= link_to "Friends", :controller => "friends", :action => "index" %>
+                            </li>
+							<li>
+                                <%= link_to "World", :controller => "users", :action => "public_profiles" %>
+                            </li>
+
+							<li>
+                                <%= link_to "Settings", :controller => "users", :action => "edit"%>
+                            </li>
+							<% if User.find(session[:user_id]).admin %>
 									<li><%= link_to "Admin", :controller => "admin", :action => "index" %></li>
-									<li><%= link_to "Read Feedback", :controller => "admin", :action => "feedback" %></li>
-									<li><%= link_to "News", :controller => "home", :action => "news" %></li>							
-								<% end %>
+									<li><%= link_to "feedback", :controller => "admin", :action => "feedback" %></li>
+									<!-- <li><%= link_to "News", :controller => "home", :action => "news" %></li>-->
+							<% end %>
+
 							<% else %>
 								<li><%= link_to "Login", :controller => "users", :action => "login" %></li>
 								<li><%= link_to "Sign Up", :controller => "users", :action => "signup" %></li>
 							<% end %>
 							<li><%= link_to "About", :controller => "home", :action => "about" %></li>
-							<li><a href="http://blog.yawnlog.com">Blog</a></li>
 						</ul>
 	            	</div>
 					<div id="login_box">
@@ -66,12 +76,13 @@ end %>
 			<% if @foo %>
             <div id="navbuff2">
 			</div>
-			<div class="navwrap footwrap">
+			<div class="footwrap">
 			<% end %>
 	            <div id="footer">
-	                copyright &copy; 2009 <a href="http://www.hellosilo.com">hellosilo llc.</a> | 
+	                &copy; 2009 <a href="http://www.hellosilo.com">hellosilo llc.</a> | 
 					<%= link_to "Terms of Service", :controller => "home", :action => "tos"%> |
-					<%= link_to "Privacy", :controller => "home", :action => "privacy_policy"%>
+					<%= link_to "Privacy", :controller => "home", :action => "privacy_policy"%> |
+                    <a href="http://github.com/sethwoodworth/yawnlog-prod">GPL code</a>
 	            </div>
 			<% if @foo %>
             </div>
