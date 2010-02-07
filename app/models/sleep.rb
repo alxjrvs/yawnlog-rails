@@ -1,6 +1,6 @@
 class Sleep < ActiveRecord::Base
-  QUALITY = {"5 - Serene" => 5, "3 - Okay" => 3, "1 - Abysmal" => 1, "2 - Restless" => 2, "4 - Restful" => 4, " "=>" "}
-  QUALITY_BACKWARDS = {5 => "5 - Serene", 3 => "3 - Okay", 1 => "1 - Abysmal", 2 => "2 - Restless", 4 => "4 - Restful", " "=>" "}
+  QUALITY = {"5 - Serene" => 5, "4 - Restful" => 4, "3 - Okay" => 3, "2 - Restless" => 2, "1 - Abysmal" => 1, " "=>" "}
+  QUALITY_BACKWARDS = {5 => "5 - Serene", 4 => "4 - Restful", 3 => "3 - Okay", 2 => "2 - Restless", 1 => "1 - Abysmal", " "=>" "}
   belongs_to :user
   
 	validate :not_a_time_traveller?
