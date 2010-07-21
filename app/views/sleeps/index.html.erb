@@ -69,23 +69,18 @@ form_for @sleep, :sleep, :url => {:action => :create_sleep_backend} do |f| %>
 <% end %>
 </div>
 
-<h1>Share your <span class="teal">yawnlog</span></h1>
-<div class="blueback">
-It's easy to share your sleep, so long as your profile is set public (edit <%= link_to "settings", :controller => "users", :action => "edit"%>). You can link your friends to your profile at <a href="http://beta.yawnlog.com/<%= @user.username%>">beta.yawnlog.com/<%= @user.username%></a>
-</div>
- 
 <% @count = 0 %>
+<% #TODO: add a conditional to fall back to username if @user.realname is null %>
 <h1>Listing sleeps of <span class="teal"><%= @user.realname %></span></h1>
 <div class="blueback">
 <% if !@sleeps.empty? %>
     <table>
       <tr>
-        <th>Start</th>
-        <th>Stop</th>
+        <th>Wakeup<br />Day</th>
+        <th>Wakeup<br />Hour</th>
 		<th>Length</th>
-        <th>Zip</th>
         <th>Quality</th>
-        <th>Note</th>
+        <th>Tags</th>
       </tr>
   
     <% for sleep in @sleeps %>
@@ -98,10 +93,9 @@ It's easy to share your sleep, so long as your profile is set public (edit <%= l
       @classstring += "hideme hidden"
      end %>
      <tr class="<%= @classstring %>">
-        <td class="wide"><%=h sleep.start.strftime("%a, %m/%d/%y %I:%M%p") %></td>
-        <td class="wide"><%=h sleep.stop.strftime("%a, %m/%d/%y %I:%M%p") %></td>
-		<td><%= ((sleep.stop - sleep.start)/3600).to_s[0..3] %> hours</td>
-        <td><%=h sleep.zip %></td>
+        <td><%=h sleep.stop.strftime("%A") %></td>
+        <td><%=h sleep.stop.hour %></td>
+		<td><%= ((sleep.stop - sleep.start)/3600).to_s[0..3] %>h</td>
         <td><%=h Sleep::QUALITY_BACKWARDS[sleep.quality] %></td>
         <td><%=h sleep.note %></td>
         <td><%= link_to 'Edit', edit_sleep_path(sleep) %></td>
@@ -156,12 +150,23 @@ It's easy to share your sleep, so long as your profile is set public (edit <%= l
 		    
 			<%= f.submit "Update" %></td>
 		</tr></table>
-		<div id="infobox" class="hidden"><p>A quick word of caution for our new field "day ends at". Setting this to values of other than midnight can be useful if you go to bed before midnight and want a chart to display sleep you got in a given night. If for instance you never sleep at 4pm you might want to set this to 4 PM, however keep in mind this means days will "end" at 4 pm, thus the dates on the chart will be how much sleep you got the night before that date.</p><center><div class="box"><a id="hideinfo" href="#bottom" onclick="">Hide</a></div></center>
-	<% end %>
 
-</div>
+		<div id="infobox" class="hidden"> 
+          <p>A quick word of caution for our new field "day ends at". Setting this to values of other than midnight can be useful if you go to bed before midnight and want a chart to display sleep you got in a given night. If for instance you never sleep at 4pm you might want to set this to 4 PM, however keep in mind this means days will "end" at 4 pm, thus the dates on the chart will be how much sleep you got the night before that date.</p>
+          <center>
+          <div class="box"><a id="hideinfo" href="#bottom" onclick="">Hide</a></div>
+          </center>
+	<% end %>
+        </div>
+
 <a id="bottom"></a>
 <br />
+
+        <h1>Share your <span class="teal">yawnlog</span></h1>
+          <div class="blueback">
+          It's easy to share your sleep, so long as your profile is set public (edit <%= link_to "settings", :controller => "users", :action => "edit"%>). You can link your friends to your profile at <a href="http://beta.yawnlog.com/<%= @user.username%>">beta.yawnlog.com/<%= @user.username%></a>
+        </div>
+ 
 <% unless @iphone %>
 <script type="text/javascript">
 $(document).ready(function() {
