@@ -1,6 +1,0 @@
-TODO: Local db needs to ALSO rake a value into the average_sleeps for the front page of YL
-    for instance:
-insert into average_sleeps (id,value,created_at,updated_at) VALUES(1,7.42,"2009-03-01 05:40:33","2010-01-30 17:16:57");
-
-TODO: create local test user that is admin for PRODUCTION ONLY. for now insert this:
-insert into users (id,username,email,password,admin) values(1,'test','test@test.test','a94a8fe5ccb19ba61c4c0873d391e987982fbbd3',1);

@@ -1,0 +1,26 @@
+How to setup a local copy of Yawnlog for development
+----------------------------------------------------
+This tutorial assumes you are running Ubuntu, the prerequisite packages are to develop YL are:
+
+>
+>
+
+TODO: Someone more knowledgeable about MacOS development should write parallel instructions.
+
+
+Database pre-populate
+=====================
+
+The YL database doesn't yet rake up sample values for testing, right now this must be done by hand.
+
+
+Open up your local database (probably sqlite) and execute the following sql statements:
+
+  insert into average\_sleeps (id,value,created\_at,updated\_at) VALUES(1,7.42,"2009-03-01 05:40:33","2010-01-30 17:16:57");
+
+  insert into users (id,username,email,password,admin) values(1,'test','test@test.test','a94a8fe5ccb19ba61c4c0873d391e987982fbbd3',1);
+
+*(note: Remove the \ before the underscores, they are here for markdown compatability)*
+
+TODO: Local db needs to ALSO rake a value into the average\_sleeps for the front page of YL.
+TODO: create local test user that is admin for PRODUCTION ONLY.
