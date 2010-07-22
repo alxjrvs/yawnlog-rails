@@ -3,86 +3,87 @@
 <% @javascripts << ["jquery-ui-personalized-1.6rc6.js","selectToUISlider.jQuery.js"] %>
 <% @title_text="Your Sleep"%>
  
-<h1>New <span class="teal">sleep</span></h1>
-<div class="blueback">
- 
-<% 
-increment = 15
-form_for @sleep, :sleep, :url => {:action => :create_sleep_backend} do |f| %>
-<fieldset id="sleep-picker">
-  <%= f.error_messages %>
-  <span class="reg">
-  Where
-	<%= f.text_field :zip, :value => @user.zip, :size => "10" %>
-	<%= f.label :quality %>
- 	<% # used to have the real implementation, order problem was shitty though: = select(:sleep, :quality, Sleep::QUALITY, {:selected=>@sleep.quality}) %>
-  	<select id="sleep_quality" name="sleep[quality]">
-		<option value=" "> </option>
-		<option value="1">Abysmal</option>
-		<option value="2">Restless</option>
-		<option value="3">Okay</option>
-		<option value="4">Restful</option>
-		<option value="5">Serene</option>
-	</select>
-	<%= f.label :note %>
-	<%= f.text_field :note %>
-  Date:   </span><input id="datepicker" type="text" name="sleep[date]" value="today" />
-    <%= f.submit "Create" %>
-    <label class="hidemeonload" for="start">From:</label>
-    <select class="hidemeonload" name="start" id="start">
-      <% now = Time.now - ((Time.now.min).to_f).minutes - ((Time.now.hour).to_f).hours - 8.hours %>
-      <optgroup label="<%= now.strftime("%d %b")%>">
-        <% while now < Time.now - ((Time.now.min).to_f).minutes - ((Time.now.hour).to_f).hours - 8.hours + 1.days
-          if now.hour == 0 and now.min == 0 %>
-            </optgroup>
-            <optgroup label="<%= now.strftime("%d %b")%>"><%
-          end %>
-          <option value="<%= now.strftime("%I:%M%p")%>" <%
-            if now.hour == 1 and now.min == 0
-              %>selected="selected" <%
-            end
-          %>><%= now.strftime("%I:%M%p")%></option><%
-          now += increment.minutes            
-        end %>
-      </optgroup>
-    </select>
-    <label class="hidemeonload" for="stop">To:</label>
-    <select class="hidemeonload" name="stop" id="stop">
-      <% now = Time.now - ((Time.now.min).to_f).minutes - ((Time.now.hour).to_f).hours - 8.hours %>
-      <optgroup label="<%= now.strftime("%d %b")%>">
-        <% while now < Time.now - ((Time.now.min).to_f).minutes - ((Time.now.hour).to_f).hours - 8.hours + 1.days
-          if now.hour == 0 and now.min == 0 %>
-            </optgroup>
-            <optgroup label="<%= now.strftime("%d %b")%>"><%
-          end %>
-          <option value="<%= now.strftime("%I:%M%p")%>"<%
-            if now.hour == 9 and now.min == 0
-              %>selected="selected" <%
-            end
-          %>><%= now.strftime("%I:%M%p")%></option><%
-          now += increment.minutes            
-        end %>
-      </optgroup>
-    </select>
-  </fieldset>
- 
-<% end %>
-</div>
+<div id="main">
 
-<% @count = 0 %>
-<% #TODO: add a conditional to fall back to username if @user.realname is null %>
-<h1>Listing sleeps of <span class="teal"><%= @user.realname %></span></h1>
-<div class="blueback">
-<% if !@sleeps.empty? %>
-    <table>
-      <tr>
-        <th>Wakeup<br />Day</th>
-        <th>Wakeup<br />Hour</th>
-		<th>Length</th>
-        <th>Quality</th>
-        <th>Tags</th>
-      </tr>
+  <h2>New <span class="teal">sleep</span></h2>
+  <div class="blueback">
+   
+  <% 
+  increment = 15
+  form_for @sleep, :sleep, :url => {:action => :create_sleep_backend} do |f| %>
+  <fieldset id="sleep-picker">
+    <%= f.error_messages %>
+    <span class="reg">
+    Where
+      <%= f.text_field :zip, :value => @user.zip, :size => "10" %>
+      <%= f.label :quality %>
+      <% # used to have the real implementation, order problem was shitty though: = select(:sleep, :quality, Sleep::QUALITY, {:selected=>@sleep.quality}) %>
+      <select id="sleep_quality" name="sleep[quality]">
+          <option value=" "> </option>
+          <option value="1">Abysmal</option>
+          <option value="2">Restless</option>
+          <option value="3">Okay</option>
+          <option value="4">Restful</option>
+          <option value="5">Serene</option>
+      </select>
+      <%= f.label :note %>
+      <%= f.text_field :note %>
+    Date:   </span><input id="datepicker" type="text" name="sleep[date]" value="today" />
+      <%= f.submit "Create" %>
+      <label class="hidemeonload" for="start">From:</label>
+      <select class="hidemeonload" name="start" id="start">
+        <% now = Time.now - ((Time.now.min).to_f).minutes - ((Time.now.hour).to_f).hours - 8.hours %>
+        <optgroup label="<%= now.strftime("%d %b")%>">
+          <% while now < Time.now - ((Time.now.min).to_f).minutes - ((Time.now.hour).to_f).hours - 8.hours + 1.days
+            if now.hour == 0 and now.min == 0 %>
+              </optgroup>
+              <optgroup label="<%= now.strftime("%d %b")%>"><%
+            end %>
+            <option value="<%= now.strftime("%I:%M%p")%>" <%
+              if now.hour == 1 and now.min == 0
+                %>selected="selected" <%
+              end
+            %>><%= now.strftime("%I:%M%p")%></option><%
+            now += increment.minutes            
+          end %>
+        </optgroup>
+      </select>
+      <label class="hidemeonload" for="stop">To:</label>
+      <select class="hidemeonload" name="stop" id="stop">
+        <% now = Time.now - ((Time.now.min).to_f).minutes - ((Time.now.hour).to_f).hours - 8.hours %>
+        <optgroup label="<%= now.strftime("%d %b")%>">
+          <% while now < Time.now - ((Time.now.min).to_f).minutes - ((Time.now.hour).to_f).hours - 8.hours + 1.days
+            if now.hour == 0 and now.min == 0 %>
+              </optgroup>
+              <optgroup label="<%= now.strftime("%d %b")%>"><%
+            end %>
+            <option value="<%= now.strftime("%I:%M%p")%>"<%
+              if now.hour == 9 and now.min == 0
+                %>selected="selected" <%
+              end
+            %>><%= now.strftime("%I:%M%p")%></option><%
+            now += increment.minutes            
+          end %>
+        </optgroup>
+      </select>
+    </fieldset>
+   
+  <% end %>
+  </div>
+
+  <h2>Your <span class="teal">SleepLog</span></h2>
+  <div class="blueback">
+  <% if !@sleeps.empty? %>
+      <table>
+        <tr>
+          <th>Wakeup<br />Day</th>
+          <th>Wakeup<br />Hour</th>
+          <th>Length</th>
+          <th>Quality</th>
+          <th>Tags</th>
+        </tr>
   
+    <% @count = 0 %>
     <% for sleep in @sleeps %>
     <% @classstring = "" %>
     <% @count+=1 %>
@@ -103,6 +104,7 @@ form_for @sleep, :sleep, :url => {:action => :create_sleep_backend} do |f| %>
       </tr>
     <% end %>
     </table>
+
 <% else %>
     <%= @user.realname %> is not tracking any sleep :-(<br />
 <% end %>
@@ -110,7 +112,7 @@ form_for @sleep, :sleep, :url => {:action => :create_sleep_backend} do |f| %>
 <div class="box"><a id="show_all" href="#" onclick="">Show All</a><a id="hide_all" href="#">Hide All</a><%= link_to "Export", :action => :export %></div>
 </div>
  
-<h1>Your Sleep <span class="teal">This Week</span></h1>
+<h2>Your Sleep <span class="teal">This Week</span></h2>
 <div class="blueback"> 
   <%= render :partial => "partials/chart.html.erb", :locals => @chart = { "start" => @start, "stop" => @stop, "end_of_day" => @end_of_day} %>
 	<% form_for :chart, :url => {:action => :index} do |f| %>
@@ -157,7 +159,6 @@ form_for @sleep, :sleep, :url => {:action => :create_sleep_backend} do |f| %>
           <div class="box"><a id="hideinfo" href="#bottom" onclick="">Hide</a></div>
           </center>
 	<% end %>
-        </div>
 
 <a id="bottom"></a>
 <br />
@@ -166,6 +167,7 @@ form_for @sleep, :sleep, :url => {:action => :create_sleep_backend} do |f| %>
           <div class="blueback">
           It's easy to share your sleep, so long as your profile is set public (edit <%= link_to "settings", :controller => "users", :action => "edit"%>). You can link your friends to your profile at <a href="http://beta.yawnlog.com/<%= @user.username%>">beta.yawnlog.com/<%= @user.username%></a>
         </div>
+
  
 <% unless @iphone %>
 <script type="text/javascript">
@@ -230,3 +232,5 @@ $(document).ready(function() {
 });
 </script>
 <% end %>
+
+</div> <% # end main div for centring wrap %>
